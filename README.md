@@ -46,7 +46,7 @@ Build the probe (from `probe/`, with `JAVA_HOME` pointing at a JDK 25):
 
 The jar lands in `probe/build/libs/`. It compiles against 26.2 by default; add `-Pminecraft_version=26.3 -Pfabric_api_version=0.161.0+26.3` to compile against 26.3.
 
-## StatusL
+## Status:
 
 Project scaffolding only. No benchmarking code yet.
 
