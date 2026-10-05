@@ -1,0 +1,6 @@
+# Git runs hooks through sh, which fails on Windows line endings.
+.githooks/** text eol=lf
+
+# The Gradle wrapper's Unix start script needs LF, the Windows one CRLF.
+/probe/gradlew text eol=lf
+*.bat          text eol=crlf

@@ -1,0 +1,26 @@
+{
+	"schemaVersion": 1,
+	"id": "datum-probe",
+	"version": "${version}",
+	"name": "Datum Probe",
+	"description": "In-game half of Datum: drives the benchmark camera path and writes run markers.",
+	"authors": [
+		"Colson Tabbert"
+	],
+	"contact": {
+		"sources": "https://github.com/colsontabbert/datum"
+	},
+	"license": "MIT",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"io.github.colsontabbert.datum.probe.DatumProbe"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": ["~26.2", "~26.3"],
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
