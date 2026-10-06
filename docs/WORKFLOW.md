@@ -7,7 +7,7 @@ How work runs in this project. `/card`, `/side`, `/patch`, `/interview`, `/wrap-
 - **Notes:** `docs/progress/<card-id>.md`
 - **Work reaches main:** a branch and pull request per card
 - **CI:** runs once a pull request is marked ready; drafts run nothing
-- **Main protected:** <set by /new-project>
+- **Main protected:** yes: pull requests only, and the check "CI passed" must pass
 
 ## Commands
 

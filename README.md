@@ -10,8 +10,9 @@ Targets Minecraft 26.2 and 26.3 on Fabric, launched through Prism Launcher.
 - **Measurement** (outside the game): PresentMon for frame times, Java Flight Recorder for garbage collection and heap, nvidia-smi for GPU clocks, temperature, and throttling. The game's own log confirms which graphics API and which GPU each run actually used; runs that don't match are thrown out.
 - **Probe** (`probe/`, Fabric mod): drives a repeatable camera path through the test world, marks when capture starts and ends, and quits the game cleanly.
 - **Analysis:** an A/A run measures the noise floor first. Each comparison reports a rank-based effect size with an exact confidence interval, and anything inside the noise floor is reported as "no measurable difference". There is no composite score. Output is `summary.csv`, `findings.md`, and a static `report.html`.
+- **Desktop GUI** (from milestone 1G): build plans, start sessions, and open results from a window instead of a terminal.
 
-See [PROJECT_BRIEF.md](PROJECT_BRIEF.md) for the full plan and [docs/research.md](docs/research.md) for verified facts about the tools and game versions involved.
+See [docs/BUILD_PLAN.md](docs/BUILD_PLAN.md) for the plan ([PROJECT_BRIEF.md](PROJECT_BRIEF.md) is the original brief) and [docs/research.md](docs/research.md) for verified facts about the tools and game versions involved.
 
 ## Setup:
 
@@ -48,18 +49,17 @@ The jar lands in `probe/build/libs/`. It compiles against 26.2 by default; add `
 
 ## Status:
 
-Project scaffolding only. No benchmarking code yet.
+Planned; scaffolding only, no benchmarking code yet. See [docs/ROADMAP.md](docs/ROADMAP.md) for the milestones and cards, [docs/BUILD_PLAN.md](docs/BUILD_PLAN.md) and [docs/SPEC.md](docs/SPEC.md) for the detail, and [docs/WORKFLOW.md](docs/WORKFLOW.md) for how work runs.
 
-Milestones (order updated after research):
+v1 ends with a desktop window (tkinter, in a Minecraft game-menu look) for building plans, starting sessions, and opening results, alongside the `datum` terminal commands.
 
-- **M0, manual proof:** capture PresentMon by hand from a Fabric instance on OpenGL and Vulkan; record the game's backend and GPU log lines.
-- **M1, runner skeleton:** session plan file, clone instance, launch through Prism, record, collect files.
-- **M2, Fabric probe** for 26.2 and 26.3: camera path, capture markers, clean quit.
-- **M3, honest numbers:** repeats, counterbalanced order, A/A check, statistics, `summary.csv` and `findings.md`.
-- **M4, settings sweep** with backup and restore.
-- **M5, mod testing** with dependency graph and group search.
-- **M6, HTML report.**
-- **Later:** datapack path for older versions and other loaders, docs and defaults for other people.
+## Auto-push
+
+Commits push to `origin` on their own through `.githooks/post-commit`. A fresh clone needs this once:
+
+```bash
+git config core.hooksPath .githooks
+```
 
 ## License
 

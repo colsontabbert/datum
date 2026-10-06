@@ -7,13 +7,16 @@ Keep this file and `AGENTS.md` identical. Edit both together.
 - Verify claims and cross-check sources before stating something as settled fact.
 - No em dashes in anything written for this project.
 - Give direct, unsoftened feedback rather than a hedged version.
-- If `docs/design-language.md` and `docs/design-tokens.md` exist in this repo, read both before doing any UI/frontend work and follow them, don't default to generic modern SaaS/Tailwind conventions. Here that means the generated `report.html`.
+- How work runs here: `docs/WORKFLOW.md`. The plan: `docs/BUILD_PLAN.md` and `docs/ROADMAP.md`. Build with `/card`, repo work with `/side`, fixes with `/patch`, planning with `/interview` (Codex: `$card`, `$side`, `$patch`, `$interview`).
+- Read `docs/design-language.md` before any UI work (the desktop GUI and the generated `report.html`) and follow it; don't default to generic modern SaaS or Tailwind conventions. Until P1-19 writes it, the "The look" section of `docs/SPEC.md` is the reference. Tactile Web (`docs/archive/tactile-web/`) is not used on this project.
+- No feature may need a multi-key shortcut: every shortcut also has a clickable way to do it, since I mostly use a touchpad, touchscreens, dictation, and one-finger typing.
+- Long text fields get a dictation button.
 - On Python projects that depend on colsontabbert-python-lib: use it instead of rewriting retry/backoff, rate limiting, an API client wrapper, env/config loading, or logging setup boilerplate. Only add something new to colsontabbert-python-lib itself after the same code has been written the same way in three separate projects, not before.
-- Datum does not depend on colsontabbert-python-lib yet. Ask me whether to add it when work reaches config loading and logging.
+- Datum does not use colsontabbert-python-lib (decided 2026-10-06, see `docs/DECISIONS.md`): it's private while Datum is public, and Datum's config is TOML. Use the built-in `tomllib` and `logging`.
 
 ## Project context
 
-- Plan: `PROJECT_BRIEF.md`. Verified facts, decisions that supersede the brief, and sources: `docs/research.md`. Read both before planning work.
+- Plan: `docs/BUILD_PLAN.md`, `docs/SPEC.md`, and `docs/DECISIONS.md` (`PROJECT_BRIEF.md` is the original brief). Verified facts and sources: `docs/research.md`. Read them before planning work.
 - Python runner in `src/datum/` (uv, Python 3.14). Fabric probe in `probe/` (Gradle, Loom, Java 25), one jar for Minecraft 26.2 and 26.3.
 - Only ever touch cloned benchmark instances. Never modify the user's real Prism instances or saves.
 

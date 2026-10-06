@@ -1,20 +1,67 @@
+# Checks pull requests once they're ready for review, and every push to main.
+# Draft pull requests run nothing and fail nothing (see "CI passed" below).
 name: CI
 
 on:
-  push:
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
     branches: [main]
+  workflow_dispatch:
+
+# A newer push to the same pull request cancels the older run. On main a
+# running workflow always finishes.
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
 
 jobs:
+  # Decides which jobs this run needs. Skipping it on a draft skips every job
+  # after it, so a draft costs nothing.
+  changes:
+    name: What changed
+    if: github.event_name != 'pull_request' || !github.event.pull_request.draft
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    outputs:
+      code: ${{ steps.diff.outputs.code }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - id: diff
+        env:
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          # Anything outside docs and Markdown counts as code. A manual run, or
+          # a push with no usable base, checks everything.
+          if [ "${{ github.event_name }}" = workflow_dispatch ] || ! git cat-file -e "$BASE^{commit}" 2>/dev/null; then
+            echo "code=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          if git diff --name-only "$BASE" HEAD | grep -qvE '^docs/|\.md$'; then
+            echo "code=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "code=false" >> "$GITHUB_OUTPUT"
+          fi
+
   python:
     # The runner is Windows-only, so lint and test it on Windows.
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     runs-on: windows-latest
+    timeout-minutes: 15
     defaults:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v7
-      - uses: astral-sh/setup-uv@v10.2.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
       - run: uv sync --locked
       - run: uv run ruff check
       - run: uv run ruff format --check
@@ -23,7 +70,10 @@ jobs:
         run: uv run pytest || [ $? -eq 5 ]
 
   probe:
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -37,11 +87,40 @@ jobs:
       run:
         working-directory: probe
     steps:
-      - uses: actions/checkout@v7
-      - uses: gradle/actions/wrapper-validation@v6
-      - uses: actions/setup-java@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: gradle/actions/wrapper-validation@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
           java-version: "25"
           distribution: microsoft
-      - uses: gradle/actions/setup-gradle@v6
+      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
       - run: ./gradlew build -Pminecraft_version=${{ matrix.minecraft }} -Pfabric_api_version=${{ matrix.fabric_api }}
+
+  # The one check for main to require: it passes when "What changed" ran and
+  # every other job passed or was skipped, and fails when any failed or was
+  # cancelled.
+  #
+  # On a draft it's skipped under another name. GitHub counts a skipped check
+  # as passed, so a draft's skipped "CI passed" would let auto-merge merge code
+  # nothing tested; with no check of that name, branch protection keeps
+  # waiting until a ready run posts one. A draft push also sends no "run
+  # failed" email.
+  passed:
+    name: ${{ github.event.pull_request.draft && 'CI waits for ready (draft)' || 'CI passed' }}
+    needs: [changes, python, probe]
+    if: always() && !(github.event_name == 'pull_request' && github.event.pull_request.draft)
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Every job passed or was skipped
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: |
+          echo "$RESULTS" | jq -r 'to_entries[] | "\(.key): \(.value.result)"'
+          if [ "$(echo "$RESULTS" | jq -r '.changes.result')" != success ]; then
+            echo "\"What changed\" didn't pass, so nothing was checked."
+            exit 1
+          fi
+          echo "$RESULTS" | jq -e 'all(.[]; .result == "success" or .result == "skipped")' > /dev/null
