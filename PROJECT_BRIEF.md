@@ -1,5 +1,7 @@
 # Datum
 
+> **Superseded by `docs/BUILD_PLAN.md`, `docs/SPEC.md`, and `docs/DECISIONS.md` on 2026-10-06; kept as the original brief.**
+
 Named after a surveyor's datum: the fixed reference point everything else gets measured from.
 
 A personal benchmarking and tuning tool for Minecraft Java Edition. It launches Minecraft over and over with different settings, mod sets, and modpacks, measures frame times from outside the game, and tells me in plain English what actually helps, what hurts, and how confident it is.

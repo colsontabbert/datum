@@ -1,4 +1,4 @@
-# Research notes (verified 2026-10-05)
+# Research notes (verified 2026-10-05, added to 2026-10-06)
 
 What setup research confirmed or changed relative to `PROJECT_BRIEF.md`. Items marked **unconfirmed** still need a real test before code depends on them. Recheck versions before relying on them; this is a snapshot.
 
@@ -92,6 +92,27 @@ Datapack formats if Tier 0 is built later: 26.2 = 107.1, 26.3 = 121.0. Use a `mi
 - **agentpixelated/minecraft-benchmark** (MIT, Aug to Sep 2026): Python, 26.2 only, OpenGL vs Vulkan with Sodium stacks, ABBA order, rejects runs whose log does not prove the backend. Closest modern match.
 - **vanilla-bench** (updated 2026-09-24, still 1.20.1): fresh instance and world per launch, settings checked by the probe, validity gates (frame coverage, focus loss), fingerprints of mods and configs, failed runs kept with a reason. Worth copying.
 - Neither does settings sweeps, per-mod testing, 26.3, or small-sample statistics.
+- From the brief (Oct 2026): FPS Benchmark (Fabric 1.21 to 1.21.1 only), PotatoBench (`/bench` with a 360 degree spin), brucethemoose's benchmarks (Prism plus PresentMon), spark (CPU profiler, blind to GPU-bound problems), mod-bisect-tool (bisects mod lists for conflicts). None ties automated A/B runs, sweeps, per-mod testing, and honest statistics together on 26.x.
+
+## Added 2026-10-06 (first interview)
+
+- **colsontabbert-python-lib** (GitHub, checked 2026-10-06): private repo, last push 2026-09-27. Modules: `retry`, `rate_limit`, `api_client` (a `requests` wrapper), `config` (`get_env`, `load_dotenv_if_present`: environment variables only), `logging_setup` (`get_logger`). Datum is public, so CI couldn't install it without a token, and Datum's config is TOML. Not added.
+- **Monocraft** (github.com/IdreesInc/Monocraft, checked 2026-10-06): SIL OFL 1.1, latest release v4.2.1 (2025-12-06), last push 2026-05-27, not archived, about 11.4k stars. A fixed-width Minecraft-style font; can ship in a public MIT repo with its license. Mojang's own font and textures cannot.
+- **PresentMon 2.6.0 release assets** (checked 2026-10-06): `PresentMon-2.6.0-x64.exe` (the console app), `PresentMon-2.6.0.msi`, `ReleaseSymbols.zip`, published 2026-09-21.
+- **Delta-RetroArch Synchronizer's GUI** (my project, read 2026-10-06): tkinter with ttk's `clam` theme (the native Windows themes ignore most color settings), a `Palette` dataclass holding every color, a log panel as the main element, hover descriptions, a `.pyw` entry point so no console window appears. Datum's look is different (Minecraft game-menu, always dark), but the same tkinter approach applies.
+- **tkinter and textured backgrounds:** ttk widgets draw their own flat backgrounds, so a tiled dirt pattern behind them isn't built in. Whether tkinter can do the game-menu look well is **unconfirmed** until P1-19 tries it.
+
+## Verify before building
+
+- Prism's install path, the game process (`javaw.exe` child of Prism), `--launch <instance> --world <save>` from the command line, and `jcmd <pid> JFR.dump` on the running game. (P0-01)
+- The OpenGL wording of the "Using graphics backend" and "Using graphics device" lines. (P0-01)
+- PresentMon captures valid `MsBetweenPresents` and `MsGPUBusy` for both APIs on this laptop. (P0-01)
+- Prism issue #6073 (OpenGL startup crash on 26.3) on this setup. (P0-01)
+- The log line that means "world loaded", on 26.2 and 26.3. (P1-04)
+- One probe jar loads and runs on both 26.2 and 26.3 in game. (P1-08)
+- Which mods work on Vulkan: Lithium, Entity Culling, More Culling, Continuity, and everything in my packs. (P1-15)
+- Datapack chat output reaching `latest.log` on 26.x. (P2-01)
+- tkinter can do the Minecraft game-menu look well. (P1-19)
 
 ## Sources
 
@@ -113,3 +134,5 @@ Datapack formats if Tier 0 is built later: 26.2 = 107.1, 26.3 = 121.0. Use a `mi
 - Cinemalya camera approach: https://github.com/Stoupy51/Cinemalya
 - agentpixelated/minecraft-benchmark: https://github.com/agentpixelated/minecraft-benchmark
 - vanilla-bench: https://github.com/Trcmoe/vanilla-bench
+- Monocraft: https://github.com/IdreesInc/Monocraft, checked 2026-10-06
+- PresentMon 2.6.0 release: https://github.com/GameTechDev/PresentMon/releases/tag/v2.6.0, checked 2026-10-06
