@@ -7,7 +7,7 @@ Keep this file and `AGENTS.md` identical. Edit both together.
 - Verify claims and cross-check sources before stating something as settled fact.
 - No em dashes in anything written for this project.
 - Give direct, unsoftened feedback rather than a hedged version.
-- How work runs here: `docs/WORKFLOW.md`. The plan: `docs/BUILD_PLAN.md` and `docs/ROADMAP.md`. Build with `/card`, repo work with `/side`, fixes with `/patch`, planning with `/interview` (Codex: `$card`, `$side`, `$patch`, `$interview`).
+- How work runs here: `docs/WORKFLOW.md`. The plan: `docs/BUILD_PLAN.md` and `docs/ROADMAP.md`. Build with `/card`, repo work with `/chore`, fixes with `/patch`, planning with `/interview` (Codex: `$card`, `$chore`, `$patch`, `$interview`).
 - Read `docs/design-language.md` before any UI work (the desktop GUI and the generated `report.html`) and follow it; don't default to generic modern SaaS or Tailwind conventions. Until P1-19 writes it, the "The look" section of `docs/SPEC.md` is the reference. Tactile Web (`docs/archive/tactile-web/`) is not used on this project.
 - No feature may need a multi-key shortcut: every shortcut also has a clickable way to do it, since I mostly use a touchpad, touchscreens, dictation, and one-finger typing.
 - Long text fields get a dictation button.

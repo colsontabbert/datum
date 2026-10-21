@@ -40,13 +40,13 @@ Before a group's cards are built, `/interview <group>` talks them through with m
 3. Read its plan. M and H cards keep going; X cards wait for my "go".
 4. When it's done it runs the checks, gets a review, and merges (X cards and checks only I can do wait for me). Then: a new session, `/card` again.
 
-Other commands: `/card status` (where everything stands), `/card <ID>` (that card), `/card <idea>` (a new card), `/interview <group>`, `/side <repo task>`, `/patch <fix>`.
+Other commands: `/card status` (where everything stands), `/card <ID>` (that card), `/card <idea>` (a new card), `/interview <group>`, `/chore <repo task>`, `/patch <fix>`.
 
 ---
 
 ## Phase 0: Manual proof (1 card)
 
-**Before you start:** (a `/side` task ticks these once I confirm)
+**Before you start:** (a `/chore` ticks these once I confirm)
 - [ ] PresentMon 2.6.0 console app downloaded into the repo's `tools/` folder
 - [ ] A copy of my FO 26.2 instance, made with Prism's Copy button
 - [ ] A copy of my FO 26.3 instance, made with Prism's Copy button
