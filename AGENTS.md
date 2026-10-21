@@ -12,11 +12,11 @@ Keep this file and `AGENTS.md` identical. Edit both together.
 - No feature may need a multi-key shortcut: every shortcut also has a clickable way to do it, since I mostly use a touchpad, touchscreens, dictation, and one-finger typing.
 - Long text fields get a dictation button.
 - On Python projects that depend on colsontabbert-python-lib: use it instead of rewriting retry/backoff, rate limiting, an API client wrapper, env/config loading, or logging setup boilerplate. Only add something new to colsontabbert-python-lib itself after the same code has been written the same way in three separate projects, not before.
-- Datum does not use colsontabbert-python-lib (decided 2026-10-06, see `docs/DECISIONS.md`): it's private while Datum is public, and Datum's config is TOML. Use the built-in `tomllib` and `logging`.
+- Datum does not use colsontabbert-python-lib (decided 2026-10-06, see `docs/DECISION_LOG.md`): it's private while Datum is public, and Datum's config is TOML. Use the built-in `tomllib` and `logging`.
 
 ## Project context
 
-- Plan: `docs/BUILD_PLAN.md`, `docs/SPEC.md`, and `docs/DECISIONS.md` (`PROJECT_BRIEF.md` is the original brief). Verified facts and sources: `docs/research.md`. Read them before planning work.
+- Plan: `docs/BUILD_PLAN.md`, `docs/SPEC.md`, and `docs/DECISION_LOG.md` (`PROJECT_BRIEF.md` is the original brief). Verified facts and sources: `docs/research.md`. Read them before planning work.
 - Python runner in `src/datum/` (uv, Python 3.14). Fabric probe in `probe/` (Gradle, Loom, Java 25), one jar for Minecraft 26.2 and 26.3.
 - Only ever touch cloned benchmark instances. Never modify the user's real Prism instances or saves.
 

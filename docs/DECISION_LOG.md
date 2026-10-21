@@ -1,4 +1,4 @@
-# Decisions
+# Decision log
 
 Each entry: the choice, why, and what would make us revisit it. New entries go at the bottom of their section, starting with the date and ending with where they came from (a card ID, `(<group> interview)`, or `(patch: <name>)`). Only real choices between options go here; details go in the spec.
 

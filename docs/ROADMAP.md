@@ -46,7 +46,7 @@ Other commands: `/card status` (where everything stands), `/card <ID>` (that car
 
 ## Phase 0: Manual proof (1 card)
 
-**Before you start:** (a `/chore` ticks these once I confirm)
+**Prerequisites:** (a `/chore` ticks these once I confirm)
 - [ ] PresentMon 2.6.0 console app downloaded into the repo's `tools/` folder
 - [ ] A copy of my FO 26.2 instance, made with Prism's Copy button
 - [ ] A copy of my FO 26.3 instance, made with Prism's Copy button
@@ -62,7 +62,7 @@ Other commands: `/card status` (where everything stands), `/card <ID>` (that car
 
 ## Phase 1: v1 for me (23 cards)
 
-**Before you start:** nothing beyond Phase 0.
+**Prerequisites:** nothing beyond Phase 0.
 
 **You'll do during this phase:** be at the laptop for every card that launches the game (P1-03 to P1-07, and most cards after); okay every X card before code and before merge; sign off on screenshots for the look, the report, and the GUI (P1-19 to P1-23); build the stress pack instance before P1-16.
 
@@ -109,7 +109,7 @@ Other commands: `/card status` (where everything stands), `/card <ID>` (that car
 
 ## Phase 2: Later (4 cards)
 
-**Before you start:** decided in the Phase 2 interviews.
+**Prerequisites:** decided in the Phase 2 interviews.
 
 **Older versions and loaders** (interview first)
 - [ ] **P2-01** Bench datapack (no mod needed) · **H**
