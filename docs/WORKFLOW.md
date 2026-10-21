@@ -22,7 +22,7 @@ How work runs in this project. `/card`, `/chore`, `/patch`, `/interview`, `/wrap
 
 ## Risky areas
 
-Cards that touch these are effort X: they wait for my OK before code and before merging. Patches and chores that touch them wait for "merge it".
+Cards that touch these are effort X: they wait for my OK before code and before merging. Patches and chores that touch them wait for "approve".
 
 - **Prism's instances folder:** anything that writes inside `%APPDATA%\PrismLauncher\instances` (creating or deleting clones, editing their files, renaming mod jars, copying worlds in). Datum's clone, reset, world-copy, and mod-toggle code in `src/datum/`.
 - **Restoring backed-up settings:** the backup and restore of config files around runs.

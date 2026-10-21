@@ -50,7 +50,7 @@ GUI (tkinter)  or  terminal (datum run / datum check)
   - Prism's Java 25 runtime has `jcmd` and `jfr`.
 - Exit code 0 only when every check passes.
 
-**Done when:** `datum check` on this laptop shows all OK, and each failing check names its fix.
+**Acceptance criteria:** `datum check` on this laptop shows all OK, and each failing check names its fix.
 
 ## Plans
 
@@ -70,7 +70,7 @@ A plan is a small TOML file describing one session. I make them in the GUI's "Ne
 - The estimate is a rough guess at first (launch + warmup + run length + cooldown, per run). Once sessions have run on this laptop, it uses their real run times. It always says which: "rough guess" or "based on your last 3 sessions".
 - After each run, the log (and the GUI) shows the updated finish time.
 
-**Done when:** no session can start without the estimate shown, and the estimate says where its number came from.
+**Acceptance criteria:** no session can start without the estimate shown, and the estimate says where its number came from.
 
 ## Benchmark clones
 
@@ -83,7 +83,7 @@ A plan is a small TOML file describing one session. I make them in the GUI's "Ne
 - At session end the clone is deleted. `--keep` keeps it.
 - Datum never writes to the source instance or its saves.
 
-**Done when:** a full session leaves the source instance byte-identical, and no clone is left behind unless `--keep` was given.
+**Acceptance criteria:** a full session leaves the source instance byte-identical, and no clone is left behind unless `--keep` was given.
 
 ## Launching and recording a run
 
@@ -117,7 +117,7 @@ A plan is a small TOML file describing one session. I make them in the GUI's "Ne
 - At the start, Datum warns: don't use the laptop during the session. Detecting focus loss comes in 1C.
 - Progress: one plain line per step ("Run 3/10: launching... recording 60 s... done") and the updated finish time. Everything also goes to `datum.log` in the session folder.
 
-**Done when:** an unattended 5-run session finishes and leaves nothing behind but its results folder.
+**Acceptance criteria:** an unattended 5-run session finishes and leaves nothing behind but its results folder.
 
 ## Results folder
 

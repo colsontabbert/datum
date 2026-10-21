@@ -1,6 +1,6 @@
 # Datum
 
-> **Superseded by `docs/BUILD_PLAN.md`, `docs/SPEC.md`, and `docs/DECISIONS.md` on 2026-10-06; kept as the original brief.**
+> **Superseded by `docs/BUILD_PLAN.md`, `docs/SPEC.md`, and `docs/DECISION_LOG.md` on 2026-10-06; kept as the original brief.**
 
 Named after a surveyor's datum: the fixed reference point everything else gets measured from.
 
